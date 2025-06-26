@@ -265,7 +265,13 @@ public class Club
             return false;
         }
 
-        // TODO: Verificar facturas pendientes y autorizados
+        // Si el socio tiene facturas pendientes, no se puede eliminar
+        if( socio.darFacturas().size() > 0 )
+        {
+            return false;
+        }
+
+        // TODO: Verificar autorizados
         return true;
     }
 }
