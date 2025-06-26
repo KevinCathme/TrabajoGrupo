@@ -229,17 +229,17 @@ public class Club
      * Extensi�n 1.
      * @return Resultado extensi�n 1.
      */
-    public String metodo1( )
-    {
-        return "respuesta1";
-    }
-
-    /**
-     * Extensi�n 2.
-     * @return Resultado extensi�n 2.
-     */
-    public String metodo2( )
-    {
-        return "respuesta2";
+    public void buscarConsumo(int cedula){
+        for(Socio p: socios){
+            if(p.darCedula().equals(cedula)){
+                double totalConsumo = 0.0;
+                for(Factura factura : p.darFacturas()){
+                    totalConsumo += factura.darValor();  // Ajusta darValor() al método correcto
+                }
+                    System.out.println("Su consumo ha sido de: $" + totalConsumo);
+            }else{
+                System.out.println("Esta persona no se encuentra registrada como socio");
+            }
+        }
     }
 }
