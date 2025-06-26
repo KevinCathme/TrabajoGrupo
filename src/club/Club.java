@@ -229,7 +229,7 @@ public class Club
      * Extensi�n 1.
      * @return Resultado extensi�n 1.
      */
-    public void buscarConsumo(int cedula){
+    public void buscarConsumo(String cedula){
         for(Socio p: socios){
             if(p.darCedula().equals(cedula)){
                 double totalConsumo = 0.0;

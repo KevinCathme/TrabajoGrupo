@@ -18,7 +18,8 @@ public class Main {
             System.out.println("4. Registrar un consumo en la cuenta de un socio");
             System.out.println("5. Aumentar fondos de la cuenta de un socio");
             System.out.println("6. Eliminar un socio del club");
-            System.out.println("7. Salir");
+            System.out.println("7. Buscar consumos socios");
+            System.out.println("8. Salir");
             System.out.print("Ingrese una opcion: ");
             op = Integer.parseInt(sc.next());
             switch (op){
@@ -84,13 +85,18 @@ public class Main {
                     else
                     {
                         // Si se puede eliminar, proceder con la eliminación
-                        if( c.eliminarSocio( cedula ) )
+                        if( c.sePuedeEliminarSocio( cedula ) )
                         {
                             System.out.println("Socio eliminado exitosamente.");
                         }
                     }
                 }break;
                 case 7:{
+                    System.out.print("Ingrese la cedula del socio a eliminar: ");
+                    String cedula = sc.next();
+                    Club.buscarConsumo(cedula);
+                }break;
+                case 8:{
                     System.out.println("Gracias!");
                 }break;
                 default:
