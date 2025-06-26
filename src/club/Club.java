@@ -242,4 +242,15 @@ public class Club
     {
         return "respuesta2";
     }
+    /**
+     * Verifica si un socio puede ser eliminado del club.
+     * @param pCedulaSocio La cédula del socio a verificar. pCedulaSocio != null && pCedulaSocio != "".
+     * @return true si el socio puede ser eliminado, false en caso contrario.
+     */
+    public boolean sePuedeEliminarSocio( String pCedulaSocio )
+    {
+        // TODO: Implementar la lógica de verificación
+        return false;
+    }
 }
+
