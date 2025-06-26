@@ -242,4 +242,43 @@ public class Club
             }
         }
     }
+
+    /**
+     * Verifica si un socio puede ser eliminado del club.
+     * @param pCedulaSocio La cédula del socio a verificar. pCedulaSocio != null && pCedulaSocio != "".
+     * @return true si el socio puede ser eliminado, false en caso contrario.
+     */
+    public boolean sePuedeEliminarSocio( String pCedulaSocio )
+    {
+        // Buscar el socio con la cédula dada
+        Socio socio = buscarSocio( pCedulaSocio );
+
+        // Si el socio no existe, no se puede eliminar
+        if( socio == null )
+        {
+            return false;
+        }
+
+        // Si el socio es VIP, no se puede eliminar
+        if( socio.darTipo() == Tipo.VIP )
+        {
+            return false;
+        }
+
+        // Si el socio tiene facturas pendientes, no se puede eliminar
+        if( socio.darFacturas().size() > 0 )
+        {
+            return false;
+        }
+
+        // Si el socio tiene más de un autorizado, no se puede eliminar
+        if( socio.darAutorizados().size() > 1 )
+        {
+            return false;
+        }
+
+        // Si pasa todas las validaciones, se puede eliminar
+        return true;
+    }
 }
+
