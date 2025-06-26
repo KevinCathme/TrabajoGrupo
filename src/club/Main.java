@@ -199,7 +199,7 @@ public class Main {
                     }break;
 
                     default:
-                        System.out.println("Opción inválida. Por favor, intente de nuevo.");
+                        System.out.println("Opción inválida. Por favor, intente de nuevo");
                 }
             }
             catch(NumberFormatException e) {
