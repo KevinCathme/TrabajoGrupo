@@ -19,7 +19,6 @@ public class Main {
             System.out.println("5. Aumentar fondos de la cuenta de un socio");
             System.out.println("6. Salir");
             System.out.print("Ingrese una opcion: ");
-            System.out.print("Sapos");
             op = Integer.parseInt(sc.next());
             switch (op){
                 case 1:{
