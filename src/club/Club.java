@@ -12,7 +12,7 @@ public class Club
     // -----------------------------------------------------------------
 
     /**
-     * Cantidad m�xima de socios VIP que acepta el club.
+     * Cantidad máxima de socios VIP que acepta el club.
      */
     public final static int MAXIMO_VIP = 3;
 
@@ -30,7 +30,7 @@ public class Club
 
     /**
      * Constructor de la clase. <br>
-     * <b>post: </b> Se inicializ� la lista de socios.
+     * <b>post: </b> Se inicializó la lista de socios.
      */
     public Club( )
     {
@@ -38,7 +38,7 @@ public class Club
     }
 
     // -----------------------------------------------------------------
-    // M�todos
+    // Métodos
     // -----------------------------------------------------------------
 
     /**
@@ -52,41 +52,41 @@ public class Club
 
     /**
      * Afilia un nuevo socio al club. <br>
-     * <b>pre: </b> La lista de socios est� inicializada. <br>
+     * <b>pre: </b> La lista de socios está inicializada. <br>
      * <b>post: </b> Se ha afiliado un nuevo socio en el club con los datos dados.
-     * @param pCedula C�dula del socio a afiliar. pCedula != null && pCedula != "".
+     * @param pCedula Cédula del socio a afiliar. pCedula != null && pCedula != "".
      * @param pNombre Nombre del socio a afiliar. pNombre != null && pNombre != "".
-     * @param pTipo Es el tipo de subscripci�n del socio. pTipo != null.
+     * @param pTipo Es el tipo de subscripción del socio. pTipo != null.
      *
      */
     public void afiliarSocio( String pCedula, String pNombre, Tipo pTipo )
     {
-
-        // Revisar que no haya ya un socio con la misma c�dula
+        // Revisar que no haya ya un socio con la misma cédula
         Socio s = buscarSocio( pCedula );
-        if( pTipo == Tipo.VIP && contarSociosVIP( ) == MAXIMO_VIP )
-        {
-            System.out.println("El club en el momento no acepta m�s socios VIP" );
 
-        }
-        // Revisar que no se haya alcanzado el l�mite de subscripciones VIP
-        if( s == null )
-        {
-            // Se crea el objeto del nuevo socio (todav�a no se ha agregado al club)
-            Socio nuevoSocio = new Socio( pCedula, pNombre, pTipo );
-            // Se agrega el nuevo socio al club
-            socios.add( nuevoSocio );
-        }
-        else
+        if( s != null )
         {
             System.out.println( "El socio ya existe" );
+            return;
         }
+
+        // Revisar que no se haya alcanzado el límite de subscripciones VIP
+        if( pTipo == Tipo.VIP && contarSociosVIP( ) >= MAXIMO_VIP )
+        {
+            System.out.println("El club en el momento no acepta más socios VIP" );
+            return;
+        }
+
+        // Se crea el objeto del nuevo socio
+        Socio nuevoSocio = new Socio( pCedula, pNombre, pTipo );
+        // Se agrega el nuevo socio al club
+        socios.add( nuevoSocio );
     }
 
     /**
-     * Retorna el socio con la c�dula dada. <br>
-     * <b> pre:<b> La lista de socios est� inicializada.<br>
-     * @param pCedulaSocio C�dula del socio buscado. pCedulaSocio != null && pCedulaSocio != "".
+     * Retorna el socio con la cédula dada. <br>
+     * <b> pre:<b> La lista de socios está inicializada.<br>
+     * @param pCedulaSocio Cédula del socio buscado. pCedulaSocio != null && pCedulaSocio != "".
      * @return El socio buscado, null si el socio buscado no existe.
      */
     public Socio buscarSocio( String pCedulaSocio )
@@ -110,8 +110,8 @@ public class Club
 
     /**
      * Retorna la cantidad de socios VIP que tiene el club.<br>
-     * <b> pre: </b> La lista de socios est� inicializada.
-     * @return N�mero de socios VIP.
+     * <b> pre: </b> La lista de socios está inicializada.
+     * @return Número de socios VIP.
      */
     public int contarSociosVIP( )
     {
@@ -127,10 +127,10 @@ public class Club
     }
 
     /**
-     * Retorna la lista de autorizados del socio con la c�dula dada.<br>
-     * <b> pre: </b> La lista de socios est� inicializada.<br>
+     * Retorna la lista de autorizados del socio con la cédula dada.<br>
+     * <b> pre: </b> La lista de socios está inicializada.<br>
      * El socio buscado existe.
-     * @param pCedulaSocio La c�dula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
      * @return La lista de autorizados del socio.
      */
     public ArrayList<String> darAutorizadosSocio( String pCedulaSocio )
@@ -138,43 +138,59 @@ public class Club
         Socio s = buscarSocio( pCedulaSocio );
         ArrayList<String> autorizados = new ArrayList<String>( );
 
-        autorizados.add( s.darNombre( ) );
-        autorizados.addAll( s.darAutorizados( ) );
+        if( s != null )
+        {
+            autorizados.add( s.darNombre( ) );
+            autorizados.addAll( s.darAutorizados( ) );
+        }
 
         return autorizados;
     }
 
     /**
-     * Agrega una nueva persona autorizada por el socio con la c�dula dada. <br>
-     * <b>pre:<b/> El socio con la c�dula dada existe. <b>post: </b> Se agreg� el nuevo autorizado..
-     * @param pCedulaSocio La c�dula del socio al cual se va a agregar el autorizado. pCedulaSocio != null && pCedulaSocio != "".
-     * @param pNombreAutorizado El nombre de la persona a autorizar. pNombreAutorizado != null && poNmbre != "".
+     * Agrega una nueva persona autorizada por el socio con la cédula dada. <br>
+     * <b>pre:<b/> El socio con la cédula dada existe. <b>post: </b> Se agregó el nuevo autorizado..
+     * @param pCedulaSocio La cédula del socio al cual se va a agregar el autorizado. pCedulaSocio != null && pCedulaSocio != "".
+     * @param pNombreAutorizado El nombre de la persona a autorizar. pNombreAutorizado != null && pNombre != "".
      *
      */
     public void agregarAutorizadoSocio( String pCedulaSocio, String pNombreAutorizado )
     {
         Socio s = buscarSocio( pCedulaSocio );
-        s.agregarAutorizado( pNombreAutorizado );
-
+        if( s != null )
+        {
+            s.agregarAutorizado( pNombreAutorizado );
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
+        }
     }
 
     /**
-     * Elimina la persona autorizada por el socio con la c�dula dada.
-     * @param pCedulaSocio La c�dula del socio que autoriz� a la persona a eliminar.pCedulaSocio!= null && pCedulaSocio! ""
+     * Elimina la persona autorizada por el socio con la cédula dada.
+     * @param pCedulaSocio La cédula del socio que autorizó a la persona a eliminar.pCedulaSocio!= null && pCedulaSocio! ""
      * @param pNombreAutorizado El nombre del autorizado a eliminar. pNombreAutorizado!= null && pNombreAutorizado!=""
      *
      */
     public void eliminarAutorizadoSocio( String pCedulaSocio, String pNombreAutorizado )
     {
         Socio s = buscarSocio( pCedulaSocio );
-        s.eliminarAutorizado( pNombreAutorizado );
+        if( s != null )
+        {
+            s.eliminarAutorizado( pNombreAutorizado );
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
+        }
     }
 
     /**
      * Registra un consumo a un socio o a su autorizado. <br>
-     * <b>post: </b> Se agreg� una nueva factura al vector del socio.
-     * @param pCedulaSocio La c�dula del socio. pCedulaSocio != null && pCedulaSocio != "".
-     * @param pNombreCliente El nombre la persona que realiz� en consumo. pNombreCliente != null && pNombreCliente != "".
+     * <b>post: </b> Se agregó una nueva factura al vector del socio.
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     * @param pNombreCliente El nombre la persona que realizó en consumo. pNombreCliente != null && pNombreCliente != "".
      * @param pConcepto El concepto del consumo. pConcepto != null && pConcepto != "".
      * @param pValor El valor del consumo. pValor >= 0.
      *
@@ -182,64 +198,96 @@ public class Club
     public void registrarConsumo( String pCedulaSocio, String pNombreCliente, String pConcepto, double pValor )
     {
         Socio s = buscarSocio( pCedulaSocio );
-        s.registrarConsumo( pNombreCliente, pConcepto, pValor );
+        if( s != null )
+        {
+            // Verificar que el nombre pertenece al socio o sus autorizados
+            ArrayList<String> autorizados = darAutorizadosSocio( pCedulaSocio );
+            boolean autorizado = false;
+
+            for( String nombre : autorizados )
+            {
+                if( nombre.equals( pNombreCliente ) )
+                {
+                    autorizado = true;
+                    break;
+                }
+            }
+
+            if( autorizado )
+            {
+                s.registrarConsumo( pNombreCliente, pConcepto, pValor );
+            }
+            else
+            {
+                System.out.println("La persona no está autorizada para este socio.");
+            }
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
+        }
     }
 
     /**
      * Retorna la lista de facturas de un socio. <br>
-     * <b>pre:<b> Existe el socio con la c�dula dada.
-     * @param pCedulaSocio La c�dula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     * <b>pre:<b> Existe el socio con la cédula dada.
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
      * @return La lista de facturas del socio.
      */
     public ArrayList<Factura> darFacturasSocio( String pCedulaSocio )
     {
-        return buscarSocio( pCedulaSocio ).darFacturas( );
+        Socio s = buscarSocio( pCedulaSocio );
+        if( s != null )
+        {
+            return s.darFacturas( );
+        }
+        return new ArrayList<Factura>();
     }
+
     /**
      * Realiza el pago de la factura de un socio. <br>
-     * <b>post: </b> Se borr� la factura del vector del socio. <br>
-     * @param pCedulaSocio La c�dula del socio. pCedulaSocio != null && pCedulaSocio != "".
-     * @param pFacturaIndice El �ndice de la factura a pagar. pFacturaIndice >= 0.
+     * <b>post: </b> Se borró la factura del vector del socio. <br>
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     * @param pFacturaIndice El índice de la factura a pagar. pFacturaIndice >= 0.
      *
      */
     public void pagarFacturaSocio( String pCedulaSocio, int pFacturaIndice )
     {
         Socio s = buscarSocio( pCedulaSocio );
-        s.pagarFactura( pFacturaIndice );
-
+        if( s != null )
+        {
+            ArrayList<Factura> facturas = s.darFacturas();
+            if( pFacturaIndice >= 0 && pFacturaIndice < facturas.size() )
+            {
+                s.pagarFactura( pFacturaIndice );
+            }
+            else
+            {
+                System.out.println("Índice de factura inválido.");
+            }
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
+        }
     }
 
     /**
      * Aumenta los fondos de un socio en la cantidad dada. <br>
      * <b>post: </b> Los fondos del socio aumentaron en el valor especificado.
-     * @param pCedulaSocio La c�dula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
      * @param pValor Valor por el cual se desean aumentar los fondos. pValor >= 0.
-     *   */
+     */
     public void aumentarFondosSocio( String pCedulaSocio, double pValor )
     {
         Socio s = buscarSocio( pCedulaSocio );
-        s.aumentarFondos( pValor );
-    }
-
-    // -----------------------------------------------------------------
-    // M�todos de Extensi�n
-    // -----------------------------------------------------------------
-
-    /**
-     * Extensi�n 1.
-     * @return Resultado extensi�n 1.
-     */
-    public void buscarConsumo(String cedula){
-        for(Socio p: socios){
-            if(p.darCedula().equals(cedula)){
-                double totalConsumo = 0.0;
-                for(Factura factura : p.darFacturas()){
-                    totalConsumo += factura.darValor();  // Ajusta darValor() al método correcto
-                }
-                    System.out.println("Su consumo ha sido de: $" + totalConsumo);
-            }else{
-                System.out.println("Esta persona no se encuentra registrada como socio");
-            }
+        if( s != null )
+        {
+            s.aumentarFondos( pValor );
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
         }
     }
 
@@ -280,5 +328,98 @@ public class Club
         // Si pasa todas las validaciones, se puede eliminar
         return true;
     }
-}
 
+    /**
+     * Elimina un socio del club si cumple con las condiciones necesarias.
+     * <b>pre: </b> La lista de socios está inicializada.
+     * <b>post: </b> Si el socio cumple las condiciones, se elimina de la lista de socios.
+     * @param pCedulaSocio La cédula del socio a eliminar. pCedulaSocio != null && pCedulaSocio != "".
+     * @return true si el socio fue eliminado exitosamente, false en caso contrario.
+     */
+    public boolean eliminarSocio( String pCedulaSocio )
+    {
+        // Verificar si el socio puede ser eliminado
+        if( !sePuedeEliminarSocio( pCedulaSocio ) )
+        {
+            return false;
+        }
+
+        // Buscar y eliminar el socio
+        Socio socioAEliminar = buscarSocio( pCedulaSocio );
+        socios.remove( socioAEliminar );
+        return true;
+    }
+
+    /**
+     * Busca y muestra el consumo total de un socio.
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     */
+
+    /**
+     * Busca y muestra el consumo total de un socio.
+     * @param pCedulaSocio La cédula del socio. pCedulaSocio != null && pCedulaSocio != "".
+     */
+    public void buscarConsumo( String pCedulaSocio )
+    {
+        Socio socio = buscarSocio( pCedulaSocio );
+
+        if( socio != null )
+        {
+            double totalConsumo = 0.0;
+            ArrayList<Factura> facturas = socio.darFacturas();
+
+            for( Factura factura : facturas )
+            {
+                totalConsumo += factura.darValor();
+            }
+
+            System.out.println("\n=== INFORMACIÓN DEL SOCIO ===");
+            System.out.println("Socio: " + socio.darNombre());
+            System.out.println("Cédula: " + socio.darCedula());
+            System.out.println("Tipo: " + socio.darTipo());
+            System.out.println("Fondos disponibles: $" + socio.darFondos());
+            System.out.println("\n=== CONSUMOS REALIZADOS ===");
+            System.out.println("Total de consumos realizados: $" + totalConsumo);
+
+            if( facturas.size() > 0 )
+            {
+                System.out.println("\nDetalle de consumos:");
+                for( int i = 0; i < facturas.size(); i++ )
+                {
+                    Factura f = facturas.get(i);
+                    System.out.println((i+1) + ". " + f.darConcepto() + " - $" + f.darValor() + " (" + f.darNombre() + ")");
+                }
+            }
+            else
+            {
+                System.out.println("No hay consumos registrados.");
+            }
+        }
+        else
+        {
+            System.out.println("No existe un socio con esa cédula.");
+        }
+    }
+
+    // -----------------------------------------------------------------
+    // Métodos de Extensión
+    // -----------------------------------------------------------------
+
+    /**
+     * Extensión 1.
+     * @return Resultado extensión 1.
+     */
+    public String metodo1( )
+    {
+        return "respuesta1";
+    }
+
+    /**
+     * Extensión 2.
+     * @return Resultado extensión 2.
+     */
+    public String metodo2( )
+    {
+        return "respuesta2";
+    }
+}
