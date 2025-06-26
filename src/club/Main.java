@@ -92,7 +92,7 @@ public class Main {
                     }
                 }break;
                 case 7:{
-                    System.out.print("Ingrese la cedula del socio a eliminar: ");
+                    System.out.print("Ingrsese la cedula del socio a eliminar: ");
                     String cedula = sc.next();
                     Club.buscarConsumo(cedula);
                 }break;
