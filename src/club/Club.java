@@ -271,7 +271,13 @@ public class Club
             return false;
         }
 
-        // TODO: Verificar autorizados
+        // Si el socio tiene más de un autorizado, no se puede eliminar
+        if( socio.darAutorizados().size() > 1 )
+        {
+            return false;
+        }
+
+        // Si pasa todas las validaciones, se puede eliminar
         return true;
     }
 }
