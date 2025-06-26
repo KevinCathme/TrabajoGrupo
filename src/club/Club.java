@@ -259,7 +259,13 @@ public class Club
             return false;
         }
 
-        // TODO: Verificar otras condiciones
+        // Si el socio es VIP, no se puede eliminar
+        if( socio.darTipo() == Tipo.VIP )
+        {
+            return false;
+        }
+
+        // TODO: Verificar facturas pendientes y autorizados
         return true;
     }
 }
